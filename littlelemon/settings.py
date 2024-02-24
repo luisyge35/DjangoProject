@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # The settings for app updated for the Graded assessment
     'restaurant',
 ]
 
@@ -78,11 +77,14 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'reservations',
+        'NAME': 'littlelemon',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'admindjango',
-        'PASSWORD': 'employee@123!'
+        'PASSWORD': 'employee@123!',
+        'OPTIONS': {   
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"   
+        } 
     }
 }
 
