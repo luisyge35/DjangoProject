@@ -13,6 +13,8 @@ from rest_framework.response import Response
 from rest_framework.generics import *
 from rest_framework.viewsets import * 
 from .serializers import *
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 def home(request):
@@ -53,6 +55,7 @@ def bookings(request):
     booking_json = "serializers.serialize('json', bookings)"
     return HttpResponse(booking_json, content_type='application/json')
 
+@permission_classes([IsAuthenticated])
 class bookingView(APIView):
     def get(self, request):
         items = Booking.objects.all()
@@ -67,6 +70,8 @@ class bookingView(APIView):
 class BookingViewSet(ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = bookingSerializer
+    permission_classes = [IsAuthenticated]
+
 class menuView(ListCreateAPIView):
     def get(self, request):
         items = Menu.objects.all()
@@ -81,3 +86,4 @@ class menuView(ListCreateAPIView):
 class singleMenuView(RetrieveUpdateAPIView, DestroyAPIView):
   queryset = Menu.objects.all()
   serializer_class = menuSerializer
+  permission_classes = [IsAuthenticated]
