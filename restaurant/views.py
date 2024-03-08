@@ -73,6 +73,10 @@ class BookingViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 class menuView(ListCreateAPIView):
+    serializer_class = menuSerializer
+    queryset = Menu.objects.all()
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         items = Menu.objects.all()
         serializer = menuSerializer(items, many = True)
